@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./cutbio.db"
+}
+
+model User{
+  id String @id @default(uuid())
+  avatar_url String
+  username String @unique
+  email String @unique
+  password String
+  created_at DateTime @default(now())
+  admin Boolean
+  pro Boolean
+
+  @@map("users")
+  links Link[]
+}
+
+model Link{
+  id String @id @default(uuid())
+  name String
+  url String @unique
+  created_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("links")
+  user_id String
+}
