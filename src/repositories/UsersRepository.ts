@@ -63,4 +63,38 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  async findById(id: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: String(id),
+      },
+      select: {
+        id: true,
+        avatar_url: true,
+        username: true,
+        email: true,
+        password: true,
+        created_at: true,
+        admin: true,
+        pro: true,
+      }
+    });
+
+    return user;
+  }
+
+  async list(): Promise<User[] | null> {
+    const users = await this.prisma.user.findMany();
+
+    return users;
+  }
+
+  async findAdmin(): Promise<User[] | null> {
+    const users = await this.prisma.user.findMany({
+      where: {
+        admin: true,
+      }
+    });
+    return users;
+  }
 }

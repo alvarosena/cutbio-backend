@@ -40,6 +40,14 @@ export class AuthenticateUserService {
       subject: user.id,
     })
 
-    return token;
+    const tokenReturn: IResponse = {
+      token,
+      user: {
+        username: user.username,
+        email: user.email,
+      }
+    }
+
+    return tokenReturn;
   }
 }
