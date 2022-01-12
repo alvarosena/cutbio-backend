@@ -23,5 +23,14 @@ export class LinksRepository implements ILinksRepository {
     return link;
   }
 
-
+  async list(username: string): Promise<Link[]> {
+    const links = await this.prisma.link.findMany({
+      where: {
+        user: {
+          username: String(username)
+        }
+      }
+    });
+    return links;
+  }
 }

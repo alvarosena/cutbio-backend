@@ -14,7 +14,9 @@ export class AuthenticateUserController {
       return response.json(token)
     }
     catch (error) {
-      console.log(error);
+      const errorMessage = 'Error: Email or password is incorrect.';
+      error = errorMessage;
+      return response.status(401).json(error);
     }
   }
 }

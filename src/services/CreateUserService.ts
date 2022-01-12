@@ -14,11 +14,12 @@ export class CreateUserService {
     const userAlreadyExists = await this.usersRepository.findByUsername(username);
 
     if (userAlreadyExists) {
-      throw new Error("Username already already taken");
+      throw new Error("Username already taken.");
     }
 
     if (!email || !password) {
       throw new Error("Email or password is incorrect.");
+
     }
 
     const hashPassword = await hash(password, 10);
@@ -27,3 +28,4 @@ export class CreateUserService {
     return user;
   }
 }
+
