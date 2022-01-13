@@ -5,7 +5,7 @@ import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { CreateLinkController } from "../controllers/CreateLinkController";
 import { ListAllUsersController } from '../controllers/ListAllUsersController';
 import { ListAllLinksOfUsersController } from "../controllers/ListAllLinksOfUsersController";
-import { ListUserByUsernameController } from "../controllers/ListUserByUsernameController";
+import { UserProfileController } from "../controllers/UserProfileController";
 
 export const usersRoutes = Router();
 
@@ -14,11 +14,11 @@ const authenticateUserController = new AuthenticateUserController();
 const createLinkController = new CreateLinkController();
 const listAllUsersController = new ListAllUsersController();
 const listAlLinksOfUsersController = new ListAllLinksOfUsersController();
-const listUserByUsernameController = new ListUserByUsernameController()
+const userProfileController = new UserProfileController()
 
 usersRoutes.post('/', createUserController.handle);
 usersRoutes.post('/sessions/authenticate', authenticateUserController.handle);
 usersRoutes.get('/', ensureAuthenticated, listAllUsersController.handle);
-usersRoutes.get('/:username', listUserByUsernameController.handle);
+usersRoutes.get('/:username', userProfileController.handle);
 usersRoutes.post('/links', ensureAuthenticated, createLinkController.handle);
 usersRoutes.get('/links/:username', listAlLinksOfUsersController.handle);

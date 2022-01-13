@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { ListUserByUsernameService } from "../services/ListUserByUsernameService";
+import { UserProfileService } from "../services/UserProfileService";
 
 
-export class ListUserByUsernameController {
+export class UserProfileController {
   async handle(request: Request, response: Response) {
     try {
       const { username } = request.params;
 
-      const listUserByUsernameService = container.resolve(ListUserByUsernameService);
+      const userProfileService = container.resolve(UserProfileService);
 
-      const user = await listUserByUsernameService.execute(username);
+      const user = await userProfileService.execute(username);
       return response.json(user);
     }
     catch (error) {

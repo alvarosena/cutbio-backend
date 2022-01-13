@@ -7,19 +7,28 @@
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/app.ts"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.6",
+    "@types/mime": "^2.0.3",
+    "@types/multer": "^1.4.7",
     "ts-node-dev": "^1.1.8",
     "typecript": "^0.0.1-security"
   },
   "dependencies": {
     "@prisma/client": "^3.8.0",
+    "aws-sdk": "^2.1055.0",
     "bcrypt": "^5.0.1",
+    "class-transformer": "^0.5.1",
     "cors": "^2.8.5",
+    "dotenv": "^11.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+    "mime": "^3.0.0",
+    "multer": "^1.4.4",
     "prisma": "^3.8.0",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.6.0",
