@@ -9,10 +9,10 @@ export class UsersRepository implements IUsersRepository {
     this.prisma = new PrismaClient();
   }
 
-  async create(avatar_url: string, username: string, email: string, password: string): Promise<User> {
+  async create(username: string, email: string, password: string): Promise<User> {
     const user = await this.prisma.user.create({
       data: {
-        avatar_url: avatar_url,
+        avatar_url: '',
         username: username,
         email: email,
         password: password,
@@ -96,5 +96,17 @@ export class UsersRepository implements IUsersRepository {
       }
     });
     return users;
+  }
+
+  async updateAvatar(id: string, avatar_url: string): Promise<User> {
+    const user = await this.prisma.user.update({
+      where: {
+        id: String(id),
+      },
+      data: {
+        avatar_url: avatar_url,
+      }
+    })
+    return user;
   }
 }

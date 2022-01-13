@@ -10,7 +10,7 @@ export class CreateUserService {
     private usersRepository: IUsersRepository
   ) { }
 
-  async execute(avatar_url: string, username: string, email: string, password: string) {
+  async execute(username: string, email: string, password: string) {
     const userAlreadyExists = await this.usersRepository.findByUsername(username);
 
     if (userAlreadyExists) {
@@ -24,7 +24,7 @@ export class CreateUserService {
 
     const hashPassword = await hash(password, 10);
 
-    const user = await this.usersRepository.create(avatar_url, username, email, hashPassword);
+    const user = await this.usersRepository.create(username, email, hashPassword);
     return user;
   }
 }

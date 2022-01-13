@@ -28,6 +28,9 @@ app.post('/profile', uploadAvatar.single('avatar'), async (request, response) =>
 
   const result = await s3StorageProvider.save(avatar_file);
 
+  const url = `${process.env.AWS_BUCKET_URL}/${result}`;
+
+  console.log(url);
   return response.status(204).send();
 })
 
