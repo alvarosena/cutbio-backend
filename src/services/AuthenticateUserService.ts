@@ -36,7 +36,9 @@ export class AuthenticateUserService {
       throw new Error("Password is incorrect!");
     }
 
-    const token = sign({}, "7d4733a55f330d7e8cafe699426e6ad5", {
+    const jwtSecret = process.env.JWT_SECRET;
+
+    const token = sign({}, jwtSecret, {
       subject: user.id,
     })
 

@@ -15,8 +15,10 @@ export function ensureAuthenticated(request: Request, response: Response, next: 
 
   const [, token] = authToken.split(" ");
 
+  const jwtSecret = process.env.JWT_SECRET;
+
   try {
-    const { sub: user_id } = verify(token, "7d4733a55f330d7e8cafe699426e6ad5") as IPaylod;
+    const { sub: user_id } = verify(token, jwtSecret) as IPaylod;
 
     const usersRepository = new UsersRepository();
 
