@@ -4,7 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/app.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/app.ts",
+    "start": "node dist/app.js"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
