@@ -22,9 +22,9 @@ const userProfileController = new UserProfileController();
 const updateAvatarController = new UpdateAvatarController();
 
 usersRoutes.post('/', createUserController.handle);
-usersRoutes.post('/sessions/authenticate', authenticateUserController.handle);
-usersRoutes.get('/', ensureAuthenticated, listAllUsersController.handle);
+usersRoutes.post('/sessions/auth', authenticateUserController.handle);
+usersRoutes.get('/', listAllUsersController.handle);
 usersRoutes.get('/:username', userProfileController.handle);
 usersRoutes.post('/links', ensureAuthenticated, createLinkController.handle);
-usersRoutes.get('/links/:username', listAlLinksOfUsersController.handle);
+usersRoutes.get('/:username/links', listAlLinksOfUsersController.handle);
 usersRoutes.patch('/profile/avatar', uploadAvatar.single('avatar'), ensureAuthenticated, updateAvatarController.handle)

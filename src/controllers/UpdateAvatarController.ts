@@ -7,18 +7,14 @@ import { UpdateAvatarService } from "../services/UpdateAvatarService";
 export class UpdateAvatarController {
   async handle(request: Request, response: Response) {
     try {
-      const file = request.file?.filename;
       const { id } = request.user;
+      const file = request.file?.filename;
 
       const updateAvatarService = container.resolve(UpdateAvatarService);
-      const usersRepository = new UsersRepository();
 
-      const result = await updateAvatarService.execute(id, file);
+      await updateAvatarService.execute(id, file);
 
-      const avatar_url = `${process.env.AWS_BUCKET_URL}/${result}`;
-
-      const userResponse = usersRepository.updateAvatar(id, avatar_url);
-      return response.status(204).json(userResponse);
+      return response.status(204).send();
     }
     catch (error) {
       const errorMessage = 'Error: User not found.';
