@@ -24,10 +24,10 @@ export class UserProfileService {
 
     const userInfo = UserMap.toDTO(user);
 
-    const userResponse = {
+    const userResponse = [
       userInfo,
       links,
-    }
+    ]
 
     return userResponse;
   }
