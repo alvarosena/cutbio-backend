@@ -25,23 +25,31 @@ exports.UserProfileService = void 0;
 const tsyringe_1 = require("tsyringe");
 const UserMap_1 = require("../mapper/UserMap");
 let UserProfileService = class UserProfileService {
-    constructor(usersRepository) {
+    constructor(usersRepository, linksRepository) {
         this.usersRepository = usersRepository;
+        this.linksRepository = linksRepository;
     }
     execute(username) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.usersRepository.findByUsername(username);
+            const links = yield this.linksRepository.list(username);
             if (!user) {
                 throw new Error("User not found.");
             }
-            return UserMap_1.UserMap.toDTO(user);
+            const userInfo = UserMap_1.UserMap.toDTO(user);
+            const userResponse = {
+                userInfo,
+                links,
+            };
+            return userResponse;
         });
     }
 };
 UserProfileService = __decorate([
     (0, tsyringe_1.injectable)(),
     __param(0, (0, tsyringe_1.inject)("UsersRepository")),
-    __metadata("design:paramtypes", [Object])
+    __param(1, (0, tsyringe_1.inject)("LinksRepository")),
+    __metadata("design:paramtypes", [Object, Object])
 ], UserProfileService);
 exports.UserProfileService = UserProfileService;
 //# sourceMappingURL=UserProfileService.js.map

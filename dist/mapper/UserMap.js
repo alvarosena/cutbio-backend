@@ -8,7 +8,7 @@ class UserMap {
             avatar_url,
             username,
             email,
-            pro
+            pro,
         };
     }
 }
