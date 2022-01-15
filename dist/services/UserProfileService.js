@@ -37,10 +37,10 @@ let UserProfileService = class UserProfileService {
                 throw new Error("User not found.");
             }
             const userInfo = UserMap_1.UserMap.toDTO(user);
-            const userResponse = {
+            const userResponse = [
                 userInfo,
                 links,
-            };
+            ];
             return userResponse;
         });
     }
