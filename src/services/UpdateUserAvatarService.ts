@@ -3,7 +3,7 @@ import { IUsersRepository } from "../repositories/IUsersRepository";
 import { IStorageProvider } from "../shared/container/Providers/StorageProvider/IStorageProvider";
 
 @injectable()
-export class UpdateAvatarService {
+export class UpdateUserAvatarService {
   constructor(
     @inject("S3StorageProvider")
     private s3StorageProvider: IStorageProvider,

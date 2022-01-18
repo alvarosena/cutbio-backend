@@ -1,7 +1,7 @@
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 interface IRequest {
   email: string;
@@ -10,6 +10,7 @@ interface IRequest {
 
 interface IResponse {
   user: {
+    avatar_url: string;
     username: string;
     email: string;
   },
@@ -17,7 +18,7 @@ interface IResponse {
 }
 
 @injectable()
-export class AuthenticateUserService {
+class AuthenticateUserService {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
@@ -27,29 +28,31 @@ export class AuthenticateUserService {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new Error("Email or password is incorrect");
+      throw new Error("User not found");
     }
 
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error("Password is incorrect!");
+      throw new Error("Password not exists");
     }
 
-    const jwtSecret = process.env.JWT_SECRET;
-
-    const token = sign({}, jwtSecret, {
+    const token = sign({}, process.env.JWT_SECRET, {
       subject: user.id,
     })
 
     const tokenReturn: IResponse = {
       token,
       user: {
+        avatar_url: user.avatar_url,
         username: user.username,
         email: user.email,
       }
     }
 
     return tokenReturn;
+
   }
 }
+
+export { AuthenticateUserService }

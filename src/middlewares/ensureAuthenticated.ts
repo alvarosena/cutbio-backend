@@ -1,40 +1,41 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response, Request } from "express";
 import { verify } from "jsonwebtoken";
-import { UsersRepository } from "../repositories/UsersRepository";
+import { UsersRepository } from '../repositories/UsersRepository';
 
-interface IPaylod {
+interface IPayload {
   sub: string;
 }
 
-export function ensureAuthenticated(request: Request, response: Response, next: NextFunction) {
-  const authToken = request.headers.authorization;
+export async function ensureAuthenticated(
+  request: Request,
+  response: Response,
+  next: NextFunction) {
+  const authHeader = request.headers.authorization;
 
-  if (!authToken) {
-    throw new Error("Token is missing.");
+  if (!authHeader) {
+    throw new Error("Token is missing");
   }
 
-  const [, token] = authToken.split(" ");
-
-  const jwtSecret = process.env.JWT_SECRET;
+  const [, token] = authHeader.split(" ");
 
   try {
-    const { sub: user_id } = verify(token, jwtSecret) as IPaylod;
+    const { sub: user_id } = verify(token, process.env.JWT_SECRET) as IPayload;
 
-    const usersRepository = new UsersRepository();
+    const usersRespository = new UsersRepository();
 
-    const user = usersRepository.findById(user_id);
+    const user = usersRespository.findById(user_id);
 
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error("User does not exists");
     }
 
     request.user = {
-      id: user_id
+      id: user_id,
     }
 
     next();
+  } catch {
+    throw new Error("Invalid token");
   }
-  catch (error) {
-    return response.json(error);
-  }
+
 }

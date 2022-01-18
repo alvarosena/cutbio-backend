@@ -6,7 +6,7 @@ import { CreateLinkController } from "../controllers/CreateLinkController";
 import { ListAllUsersController } from '../controllers/ListAllUsersController';
 import { ListAllLinksOfUsersController } from "../controllers/ListAllLinksOfUsersController";
 import { UserProfileController } from "../controllers/UserProfileController";
-import { UpdateAvatarController } from "../controllers/UpdateAvatarController";
+import { UpdateUserAvatarController } from "../controllers/UpdateAvatarController";
 import multer from "multer";
 import uploadConfig from "../config/upload";
 
@@ -19,12 +19,12 @@ const createLinkController = new CreateLinkController();
 const listAllUsersController = new ListAllUsersController();
 const listAlLinksOfUsersController = new ListAllLinksOfUsersController();
 const userProfileController = new UserProfileController();
-const updateAvatarController = new UpdateAvatarController();
+const updateUserAvatarController = new UpdateUserAvatarController();
 
 usersRoutes.post('/', createUserController.handle);
 usersRoutes.post('/sessions/auth', authenticateUserController.handle);
 usersRoutes.get('/', listAllUsersController.handle);
-usersRoutes.get('/:username', userProfileController.handle);
+usersRoutes.get('/:username', ensureAuthenticated, userProfileController.handle);
 usersRoutes.post('/links', ensureAuthenticated, createLinkController.handle);
 usersRoutes.get('/:username/links', listAlLinksOfUsersController.handle);
-usersRoutes.patch('/profile/avatar', uploadAvatar.single('avatar'), ensureAuthenticated, updateAvatarController.handle)
+usersRoutes.patch('/profile/avatar', uploadAvatar.single('avatar'), ensureAuthenticated, updateUserAvatarController.handle)
