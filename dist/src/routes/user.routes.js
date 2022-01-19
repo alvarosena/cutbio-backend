@@ -16,6 +16,7 @@ const UpdateAvatarController_1 = require("../controllers/UpdateAvatarController"
 const multer_1 = __importDefault(require("multer"));
 const upload_1 = __importDefault(require("../config/upload"));
 const UpdateLinkController_1 = require("../controllers/UpdateLinkController");
+const DeleteLinkController_1 = require("../controllers/DeleteLinkController");
 exports.usersRoutes = (0, express_1.Router)();
 const uploadAvatar = (0, multer_1.default)(upload_1.default);
 const createUserController = new CreateUserContoller_1.CreateUserContoller();
@@ -26,6 +27,7 @@ const listAlLinksOfUsersController = new ListAllLinksOfUsersController_1.ListAll
 const userProfileController = new UserProfileController_1.UserProfileController();
 const updateUserAvatarController = new UpdateAvatarController_1.UpdateUserAvatarController();
 const updateLinkController = new UpdateLinkController_1.UpdateLinkController();
+const deleteLinkController = new DeleteLinkController_1.DeleteLinkController();
 exports.usersRoutes.post('/', createUserController.handle);
 exports.usersRoutes.post('/sessions/auth', authenticateUserController.handle);
 exports.usersRoutes.get('/', listAllUsersController.handle);
@@ -34,3 +36,4 @@ exports.usersRoutes.post('/links', ensureAuthenticated_1.ensureAuthenticated, cr
 exports.usersRoutes.get('/:username/links', listAlLinksOfUsersController.handle);
 exports.usersRoutes.patch('/:username/avatar', uploadAvatar.single('avatar'), ensureAuthenticated_1.ensureAuthenticated, updateUserAvatarController.handle);
 exports.usersRoutes.patch('/links/:id', ensureAuthenticated_1.ensureAuthenticated, updateLinkController.handle);
+exports.usersRoutes.delete('/links/:id', ensureAuthenticated_1.ensureAuthenticated, deleteLinkController.handle);

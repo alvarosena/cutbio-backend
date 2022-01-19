@@ -34,6 +34,22 @@ export class LinksRepository implements ILinksRepository {
     return links;
   }
 
+  async findById(id: string): Promise<Link> {
+    const link = await this.prisma.link.findUnique({
+      where: {
+        id: String(id),
+      },
+      select: {
+        id: true,
+        name: true,
+        url: true,
+        created_at: true,
+        user_id: true,
+      }
+    });
+    return link;
+  }
+
   async updateLink(id: string, name?: string, url?: string): Promise<Link> {
     const link = await this.prisma.link.update({
       where: {
@@ -42,6 +58,15 @@ export class LinksRepository implements ILinksRepository {
       data: {
         name: String(name),
         url: String(url),
+      }
+    });
+    return link;
+  }
+
+  async deleteLink(id: string): Promise<Link> {
+    const link = await this.prisma.link.delete({
+      where: {
+        id: String(id),
       }
     });
     return link;

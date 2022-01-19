@@ -9,23 +9,23 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateLinkService = void 0;
+exports.DeleteLinkService = void 0;
 const tsyringe_1 = require("tsyringe");
-let UpdateLinkService = class UpdateLinkService {
+let DeleteLinkService = class DeleteLinkService {
     constructor(linksRepository) {
         this.linksRepository = linksRepository;
     }
-    async execute(id, name, url) {
+    async execute(id) {
         const link = await this.linksRepository.findById(id);
         if (!link) {
             throw new Error("Link not found.");
         }
-        const updatedLink = await this.linksRepository.updateLink(id, name, url);
-        return updatedLink;
+        const deletedLink = await this.linksRepository.deleteLink(id);
+        return deletedLink;
     }
 };
-UpdateLinkService = __decorate([
+DeleteLinkService = __decorate([
     (0, tsyringe_1.injectable)(),
     __param(0, (0, tsyringe_1.inject)("LinksRepository"))
-], UpdateLinkService);
-exports.UpdateLinkService = UpdateLinkService;
+], DeleteLinkService);
+exports.DeleteLinkService = DeleteLinkService;

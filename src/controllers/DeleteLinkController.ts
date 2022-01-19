@@ -1,17 +1,16 @@
 import { Request, Response } from 'express';
-import { UpdateLinkService } from '../services/UpdateLinkService';
+import { DeleteLinkService } from '../services/DeleteLinkService';
 import { container } from 'tsyringe';
 
-export class UpdateLinkController {
+export class DeleteLinkController {
   async handle(request: Request, response: Response) {
     try {
       const { id } = request.params;
-      const { name, url } = request.body;
 
-      const updateLinkService = container.resolve(UpdateLinkService);
+      const deleteLinkService = container.resolve(DeleteLinkService);
 
-      const link = await updateLinkService.execute(id, name, url);
-      return response.status(204).json(link);
+      await deleteLinkService.execute(id);
+      return response.status(204).send();
     }
     catch (error) {
       const errorMessage = 'Error: Link not found.';

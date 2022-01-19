@@ -29,6 +29,21 @@ class LinksRepository {
         });
         return links;
     }
+    async findById(id) {
+        const link = await this.prisma.link.findUnique({
+            where: {
+                id: String(id),
+            },
+            select: {
+                id: true,
+                name: true,
+                url: true,
+                created_at: true,
+                user_id: true,
+            }
+        });
+        return link;
+    }
     async updateLink(id, name, url) {
         const link = await this.prisma.link.update({
             where: {
@@ -37,6 +52,14 @@ class LinksRepository {
             data: {
                 name: String(name),
                 url: String(url),
+            }
+        });
+        return link;
+    }
+    async deleteLink(id) {
+        const link = await this.prisma.link.delete({
+            where: {
+                id: String(id),
             }
         });
         return link;

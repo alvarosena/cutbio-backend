@@ -10,6 +10,7 @@ import { UpdateUserAvatarController } from "../controllers/UpdateAvatarControlle
 import multer from "multer";
 import uploadConfig from "../config/upload";
 import { UpdateLinkController } from "../controllers/UpdateLinkController";
+import { DeleteLinkController } from "../controllers/DeleteLinkController";
 
 export const usersRoutes = Router();
 const uploadAvatar = multer(uploadConfig);
@@ -22,6 +23,7 @@ const listAlLinksOfUsersController = new ListAllLinksOfUsersController();
 const userProfileController = new UserProfileController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 const updateLinkController = new UpdateLinkController();
+const deleteLinkController = new DeleteLinkController();
 
 usersRoutes.post('/', createUserController.handle);
 usersRoutes.post('/sessions/auth', authenticateUserController.handle);
@@ -31,3 +33,4 @@ usersRoutes.post('/links', ensureAuthenticated, createLinkController.handle);
 usersRoutes.get('/:username/links', listAlLinksOfUsersController.handle);
 usersRoutes.patch('/:username/avatar', uploadAvatar.single('avatar'), ensureAuthenticated, updateUserAvatarController.handle);
 usersRoutes.patch('/links/:id', ensureAuthenticated, updateLinkController.handle);
+usersRoutes.delete('/links/:id', ensureAuthenticated, deleteLinkController.handle);
