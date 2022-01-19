@@ -29,5 +29,17 @@ class LinksRepository {
         });
         return links;
     }
+    async updateLink(id, name, url) {
+        const link = await this.prisma.link.update({
+            where: {
+                id: String(id),
+            },
+            data: {
+                name: String(name),
+                url: String(url),
+            }
+        });
+        return link;
+    }
 }
 exports.LinksRepository = LinksRepository;

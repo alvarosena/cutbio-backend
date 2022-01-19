@@ -7,12 +7,12 @@ import { UpdateUserAvatarService } from "../services/UpdateUserAvatarService";
 export class UpdateUserAvatarController {
   async handle(request: Request, response: Response) {
     try {
-      const { id } = request.user;
+      const { username } = request.params;
       const file = request.file?.filename;
 
       const updateUserAvatarService = container.resolve(UpdateUserAvatarService);
 
-      await updateUserAvatarService.execute(id, file);
+      await updateUserAvatarService.execute(username, file);
 
       return response.status(204).send();
     }

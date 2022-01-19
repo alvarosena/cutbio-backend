@@ -33,4 +33,17 @@ export class LinksRepository implements ILinksRepository {
     });
     return links;
   }
+
+  async updateLink(id: string, name?: string, url?: string): Promise<Link> {
+    const link = await this.prisma.link.update({
+      where: {
+        id: String(id),
+      },
+      data: {
+        name: String(name),
+        url: String(url),
+      }
+    });
+    return link;
+  }
 }

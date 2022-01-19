@@ -98,10 +98,10 @@ export class UsersRepository implements IUsersRepository {
     return users;
   }
 
-  async updateAvatar(id: string, avatar_url: string): Promise<User> {
+  async updateAvatar(username: string, avatar_url: string): Promise<User> {
     const user = await this.prisma.user.update({
       where: {
-        id: String(id),
+        username: String(username),
       },
       data: {
         avatar_url: avatar_url,

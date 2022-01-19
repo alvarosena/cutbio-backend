@@ -34,8 +34,10 @@ export async function ensureAuthenticated(
     }
 
     next();
-  } catch {
-    throw new Error("Invalid token");
+  } catch (error) {
+    const errorMessage = 'Error: Invalid token.';
+    error = errorMessage;
+    return response.status(400).json(error);
   }
 
 }

@@ -85,10 +85,10 @@ class UsersRepository {
         });
         return users;
     }
-    async updateAvatar(id, avatar_url) {
+    async updateAvatar(username, avatar_url) {
         const user = await this.prisma.user.update({
             where: {
-                id: String(id),
+                username: String(username),
             },
             data: {
                 avatar_url: avatar_url,

@@ -21,8 +21,10 @@ async function ensureAuthenticated(request, response, next) {
         };
         next();
     }
-    catch (_a) {
-        throw new Error("Invalid token");
+    catch (error) {
+        const errorMessage = 'Error: Invalid token.';
+        error = errorMessage;
+        return response.status(400).json(error);
     }
 }
 exports.ensureAuthenticated = ensureAuthenticated;
