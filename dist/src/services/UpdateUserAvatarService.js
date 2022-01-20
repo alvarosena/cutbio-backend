@@ -18,9 +18,6 @@ let UpdateUserAvatarService = class UpdateUserAvatarService {
     }
     async execute(username, file) {
         const user = await this.usersRepository.findByUsername(username);
-        if (user === null || user === void 0 ? void 0 : user.avatar_url) {
-            await this.s3StorageProvider.delete(user.avatar_url);
-        }
         const newAvatar = await this.s3StorageProvider.save(file);
         const avatar_url = `${process.env.AWS_BUCKET_URL}/${newAvatar}`;
         const userUpdated = await this.usersRepository.updateAvatar(username, avatar_url);
