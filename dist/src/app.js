@@ -13,11 +13,17 @@ require("./shared/container");
 const multer_1 = __importDefault(require("multer"));
 const S3StorageProvider_1 = require("./shared/container/Providers/StorageProvider/S3StorageProvider");
 const app = (0, express_1.default)();
-// const upload = multer({ dest: 'uploads/' })
 const uploadAvatar = (0, multer_1.default)(upload_1.default);
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(routes_1.routes);
+app.use((request, response, next) => {
+    response.header("Access-Control-Allow-Origin", '*');
+    response.header("Access-Control-Allow-Credentials", true);
+    response.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    response.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 app.get('/', (request, response) => {
     return response.json({ message: "Hello, World" });
 });
