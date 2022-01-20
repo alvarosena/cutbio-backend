@@ -14,8 +14,6 @@ class UpdateUserAvatarController {
             return response.status(204).send();
         }
         catch (error) {
-            const errorMessage = 'Error: User not found.';
-            error = errorMessage;
             return response.json(error);
         }
     }
