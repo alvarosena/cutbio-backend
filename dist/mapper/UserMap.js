@@ -13,4 +13,3 @@ class UserMap {
     }
 }
 exports.UserMap = UserMap;
-//# sourceMappingURL=UserMap.js.map

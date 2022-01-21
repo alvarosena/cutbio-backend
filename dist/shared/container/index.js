@@ -7,4 +7,3 @@ const S3StorageProvider_1 = require("./Providers/StorageProvider/S3StorageProvid
 tsyringe_1.container.registerSingleton("UsersRepository", UsersRepository_1.UsersRepository);
 tsyringe_1.container.registerSingleton("LinksRepository", LinksRepository_1.LinksRepository);
 tsyringe_1.container.registerSingleton("S3StorageProvider", S3StorageProvider_1.S3StorageProvider);
-//# sourceMappingURL=index.js.map

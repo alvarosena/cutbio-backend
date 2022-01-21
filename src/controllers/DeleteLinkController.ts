@@ -13,9 +13,7 @@ export class DeleteLinkController {
       return response.status(204).send();
     }
     catch (error) {
-      const errorMessage = 'Error: Link not found.';
-      error = errorMessage;
-      return response.status(404).json(error);
+      return response.json(error);
     }
   }
 }
