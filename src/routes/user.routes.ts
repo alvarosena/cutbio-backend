@@ -31,6 +31,6 @@ usersRoutes.get('/', listAllUsersController.handle);
 usersRoutes.get('/:username', ensureAuthenticated, userProfileController.handle);
 usersRoutes.post('/links', ensureAuthenticated, createLinkController.handle);
 usersRoutes.get('/:username/links', listAlLinksOfUsersController.handle);
-usersRoutes.patch('/:username/avatar', uploadAvatar.single('avatar'), ensureAuthenticated, updateUserAvatarController.handle);
+usersRoutes.put('/:username/avatar', uploadAvatar.single('avatar'), ensureAuthenticated, updateUserAvatarController.handle);
 usersRoutes.patch('/links/:id', ensureAuthenticated, updateLinkController.handle);
 usersRoutes.delete('/links/:id', ensureAuthenticated, deleteLinkController.handle);
