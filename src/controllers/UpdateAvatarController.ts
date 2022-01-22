@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UsersRepository } from "../repositories/UsersRepository";
 import { UpdateUserAvatarService } from "../services/UpdateUserAvatarService";
 
 
@@ -14,7 +13,7 @@ export class UpdateUserAvatarController {
 
       await updateUserAvatarService.execute(username, file);
 
-      return response.status(204).send();
+      return response.status(204).json({ message: 'Uploaded succesfully!' });
     }
     catch (error) {
       return response.json(error);

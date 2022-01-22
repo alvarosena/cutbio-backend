@@ -1,7 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
 import { IUsersRepository } from "./IUsersRepository";
 
-
 export class UsersRepository implements IUsersRepository {
   private prisma: PrismaClient;
 
@@ -106,7 +105,7 @@ export class UsersRepository implements IUsersRepository {
       data: {
         avatar_url: avatar_url,
       }
-    })
+    });
     return user;
   }
 }

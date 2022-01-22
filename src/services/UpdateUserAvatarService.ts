@@ -20,7 +20,6 @@ export class UpdateUserAvatarService {
     const avatar_url = `${process.env.AWS_BUCKET_URL}/${newAvatar}`;
 
     const userUpdated = await this.usersRepository.updateAvatar(username, avatar_url);
-
     return userUpdated;
   }
 }
