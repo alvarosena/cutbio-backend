@@ -11,7 +11,7 @@ class UpdateUserAvatarController {
             const file = (_a = request.file) === null || _a === void 0 ? void 0 : _a.filename;
             const updateUserAvatarService = tsyringe_1.container.resolve(UpdateUserAvatarService_1.UpdateUserAvatarService);
             await updateUserAvatarService.execute(username, file);
-            return response.status(204).send();
+            return response.status(204).json({ message: 'Uploaded succesfully!' });
         }
         catch (error) {
             return response.json(error);
