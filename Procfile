@@ -1,2 +1,3 @@
 web: npm start
-npx prisma migrate deploy
+
+release: npx prisma migrate deploy
