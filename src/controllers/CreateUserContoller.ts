@@ -14,8 +14,6 @@ export class CreateUserContoller {
       return response.json(user);
     }
     catch (error) {
-      const errorMessage = 'Error: Username already taken.';
-      error = errorMessage;
       return response.status(400).json(error);
     }
   }
