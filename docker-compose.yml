@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+  database:
+    image: postgres
+    container_name: database_cutbio
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=cutbio
+      - POSTGRES_PASSWORD=cypherb1o
+      - POSTGRES_DB=cutbio
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
