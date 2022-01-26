@@ -84,7 +84,6 @@ export class UsersRepository implements IUsersRepository {
 
   async list(): Promise<User[] | null> {
     const users = await this.prisma.user.findMany();
-
     return users;
   }
 
