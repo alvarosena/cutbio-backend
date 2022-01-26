@@ -6,13 +6,14 @@ const tsyringe_1 = require("tsyringe");
 class ListUserInfoController {
     async handle(request, response) {
         try {
+            const { id } = request.user;
             const { username } = request.params;
             const listUserInfoService = tsyringe_1.container.resolve(ListUserInfoService_1.ListUserInfoService);
-            const user = await listUserInfoService.execute(username);
+            const user = await listUserInfoService.execute(id, username);
             return response.json(user);
         }
         catch (err) {
-            return response.status(404).json(err);
+            console.log(err);
         }
     }
 }

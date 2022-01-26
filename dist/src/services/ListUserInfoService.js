@@ -16,7 +16,7 @@ let ListUserInfoService = class ListUserInfoService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
     }
-    async execute(username) {
+    async execute(id, username) {
         const user = await this.usersRepository.findByUsername(username);
         if (!user) {
             throw new Error("User not found.");

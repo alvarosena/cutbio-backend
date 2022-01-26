@@ -1,7 +1,7 @@
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
-import { IUsersRepository } from '../repositories/IUsersRepository';
+import { IUsersRepository } from "../repositories/IUsersRepository";
 
 interface IRequest {
   email: string;
@@ -10,36 +10,36 @@ interface IRequest {
 
 interface IResponse {
   user: {
-    avatar_url: string;
-    username: string;
-    email: string;
+    avatar_url: string,
+    username: string,
+    email: string,
   },
   token: string;
 }
-
 @injectable()
-class AuthenticateUserService {
+export class AuthenticateUserService {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    private usersRespository: IUsersRepository
   ) { }
 
-  async execute({ email, password }: IRequest) {
-    const user = await this.usersRepository.findByEmail(email);
+  async execute({ password, email }: IRequest) {
+    const user = await this.usersRespository.findByEmail(email);
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error("User not found.");
     }
 
     const passwordMatch = compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error("Password not exists");
+      throw new Error("Email or password is incorrect!")
     }
 
     const token = sign({}, process.env.JWT_SECRET, {
       subject: user.id,
-    })
+      expiresIn: process.env.EXPIRES_IN,
+    });
 
     const tokenReturn: IResponse = {
       token,
@@ -48,11 +48,8 @@ class AuthenticateUserService {
         username: user.username,
         email: user.email,
       }
-    }
+    };
 
     return tokenReturn;
-
   }
 }
-
-export { AuthenticateUserService }

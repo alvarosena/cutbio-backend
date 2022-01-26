@@ -14,20 +14,21 @@ const bcrypt_1 = require("bcrypt");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const tsyringe_1 = require("tsyringe");
 let AuthenticateUserService = class AuthenticateUserService {
-    constructor(usersRepository) {
-        this.usersRepository = usersRepository;
+    constructor(usersRespository) {
+        this.usersRespository = usersRespository;
     }
-    async execute({ email, password }) {
-        const user = await this.usersRepository.findByEmail(email);
+    async execute({ password, email }) {
+        const user = await this.usersRespository.findByEmail(email);
         if (!user) {
-            throw new Error("User not found");
+            throw new Error("User not found.");
         }
         const passwordMatch = (0, bcrypt_1.compare)(password, user.password);
         if (!passwordMatch) {
-            throw new Error("Password not exists");
+            throw new Error("Email or password is incorrect!");
         }
         const token = (0, jsonwebtoken_1.sign)({}, process.env.JWT_SECRET, {
             subject: user.id,
+            expiresIn: process.env.EXPIRES_IN,
         });
         const tokenReturn = {
             token,

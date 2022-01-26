@@ -5,15 +5,16 @@ import { container } from 'tsyringe';
 export class ListUserInfoController {
   async handle(request: Request, response: Response) {
     try {
+      const { id } = request.user;
       const { username } = request.params;
 
       const listUserInfoService = container.resolve(ListUserInfoService);
 
-      const user = await listUserInfoService.execute(username);
+      const user = await listUserInfoService.execute(id, username);
       return response.json(user);
     }
     catch (err) {
-      return response.status(404).json(err);
+      console.log(err);
     }
   }
 }

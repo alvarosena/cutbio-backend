@@ -10,7 +10,7 @@ export class ListUserInfoService {
     private usersRepository: IUsersRepository
   ) { }
 
-  async execute(username: string) {
+  async execute(id: string, username: string) {
     const user = await this.usersRepository.findByUsername(username);
 
     if (!user) {
