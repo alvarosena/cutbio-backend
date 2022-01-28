@@ -30,7 +30,7 @@ export class AuthenticateUserService {
       throw new Error("User not found.");
     }
 
-    const passwordMatch = compare(password, user.password);
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new Error("Email or password is incorrect!")

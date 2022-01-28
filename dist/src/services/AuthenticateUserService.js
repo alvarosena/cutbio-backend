@@ -22,7 +22,7 @@ let AuthenticateUserService = class AuthenticateUserService {
         if (!user) {
             throw new Error("User not found.");
         }
-        const passwordMatch = (0, bcrypt_1.compare)(password, user.password);
+        const passwordMatch = await (0, bcrypt_1.compare)(password, user.password);
         if (!passwordMatch) {
             throw new Error("Email or password is incorrect!");
         }

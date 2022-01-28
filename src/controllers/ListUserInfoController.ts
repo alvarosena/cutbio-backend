@@ -13,8 +13,8 @@ export class ListUserInfoController {
       const user = await listUserInfoService.execute(id, username);
       return response.json(user);
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      return response.status(400).json(error.message);
     }
   }
 }

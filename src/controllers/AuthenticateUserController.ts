@@ -14,7 +14,7 @@ export class AuthenticateUserController {
       return response.json(token)
     }
     catch (error) {
-      console.log(error);
+      return response.status(400).json(error.message);
     }
   }
 }
