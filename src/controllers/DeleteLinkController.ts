@@ -4,16 +4,12 @@ import { container } from 'tsyringe';
 
 export class DeleteLinkController {
   async handle(request: Request, response: Response) {
-    try {
-      const { id } = request.params;
+    const { id } = request.params;
 
-      const deleteLinkService = container.resolve(DeleteLinkService);
+    const deleteLinkService = container.resolve(DeleteLinkService);
 
-      await deleteLinkService.execute(id);
-      return response.status(204).send();
-    }
-    catch (error) {
-      return response.json(error);
-    }
+    await deleteLinkService.execute(id);
+    return response.status(204).send();
+
   }
 }

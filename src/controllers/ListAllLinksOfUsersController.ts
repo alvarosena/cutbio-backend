@@ -4,18 +4,11 @@ import { ListAllLinksOfUsersServices } from '../services/ListAllLinksOfUsersServ
 
 export class ListAllLinksOfUsersController {
   async handle(request: Request, response: Response) {
-    try {
-      const { username } = request.params;
+    const { username } = request.params;
 
-      const listAlLinksOfUsersService = container.resolve(ListAllLinksOfUsersServices);
+    const listAlLinksOfUsersService = container.resolve(ListAllLinksOfUsersServices);
 
-      const links = await listAlLinksOfUsersService.execute(username);
-      return response.json(links);
-    }
-    catch (error) {
-      const errorMessage = 'Error: User not found.';
-      error = errorMessage;
-      return response.status(404).json(error);
-    }
+    const links = await listAlLinksOfUsersService.execute(username);
+    return response.json(links);
   }
 }

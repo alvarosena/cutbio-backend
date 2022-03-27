@@ -5,16 +5,11 @@ import { CreateUserService } from "../services/CreateUserService";
 
 export class CreateUserContoller {
   async handle(request: Request, response: Response) {
-    try {
-      const { username, email, password } = request.body;
+    const { username, email, password } = request.body;
 
-      const createUserService = container.resolve(CreateUserService);
+    const createUserService = container.resolve(CreateUserService);
 
-      const user = await createUserService.execute(username, email, password);
-      return response.json(user);
-    }
-    catch (error) {
-      return response.status(400).json(error);
-    }
+    const user = await createUserService.execute(username, email, password);
+    return response.json(user);
   }
 }

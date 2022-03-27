@@ -5,18 +5,14 @@ import { UpdateUserAvatarService } from "../services/UpdateUserAvatarService";
 
 export class UpdateUserAvatarController {
   async handle(request: Request, response: Response) {
-    try {
-      const { username } = request.params;
-      const file = request.file?.filename;
+    const { username } = request.params;
+    const file = request.file?.filename;
 
-      const updateUserAvatarService = container.resolve(UpdateUserAvatarService);
+    const updateUserAvatarService = container.resolve(UpdateUserAvatarService);
 
-      await updateUserAvatarService.execute(username, file);
+    await updateUserAvatarService.execute(username, file);
 
-      return response.status(204).json({ message: 'Uploaded succesfully!' });
-    }
-    catch (error) {
-      return response.json(error);
-    }
+    return response.status(204).json({ message: 'Uploaded succesfully!' });
+
   }
 }
