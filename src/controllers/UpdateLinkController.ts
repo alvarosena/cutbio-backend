@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 
 export class UpdateLinkController {
   async handle(request: Request, response: Response) {
+    const { id: user_id } = request.user;
     const { id } = request.params;
     const { name, url } = request.body;
 

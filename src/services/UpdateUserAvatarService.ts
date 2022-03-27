@@ -12,14 +12,18 @@ export class UpdateUserAvatarService {
     private usersRepository: IUsersRepository
   ) { }
 
-  async execute(username: string, file: string) {
-    const user = await this.usersRepository.findByUsername(username);
+  async execute(file: string, user_id: string) {
+    const user = await this.usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new Error("User not found")
+    }
 
     const newAvatar = await this.s3StorageProvider.save(file);
 
     const avatar_url = `${process.env.AWS_BUCKET_URL}/${newAvatar}`;
 
-    const userUpdated = await this.usersRepository.updateAvatar(username, avatar_url);
+    const userUpdated = await this.usersRepository.updateAvatar(user.id, avatar_url);
     return userUpdated;
   }
 }

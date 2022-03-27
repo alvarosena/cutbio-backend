@@ -7,5 +7,5 @@ export interface IUsersRepository {
   findById(id: string): Promise<User | null>
   list(): Promise<User[] | null>
   findAdmin(): Promise<User[] | null>
-  updateAvatar(username: string, avatar_url: string): Promise<User>
+  updateAvatar(id: string, avatar_url: string): Promise<User>
 }
